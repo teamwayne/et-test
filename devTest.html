@@ -1,0 +1,480 @@
+<html>
+    <head>
+        <style>
+            .defaultFont{
+                font-family: Helvetica, sans-serif;
+            }
+            .grid-container {
+                display: grid;
+                font-family: Helvetica, sans-serif;
+            }
+            .grid-container--fill {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
+            .grid-container--fit {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            .grid-header {
+                background-color: purple;
+                padding: 15px;
+                color: white;
+                font-size: 12px;
+                border: 1px solid #fff;
+            }
+            .grid-element {
+                background-color: lightgrey;
+                padding: 15px;
+                font-size: 12px;
+                border: 1px solid #fff;
+            }
+            .red{
+                background-color: #dcd0d0;
+            }
+            a {
+                color: blue;
+            }
+            a:hover {
+                text-decoration: underline;
+                cursor: pointer;
+            }    
+            body {
+                padding: 2em;
+            }
+            hr {
+                margin: 80px;
+            }
+        </style>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            window.load = window.load || {};
+        </script>
+        <script src="https://tags.iag.com.au/dev/load/load.js"></script>
+        <script>
+
+            var eTSave = JSON.parse(localStorage.eTSave || null) || {};
+            window.load.config = window.load.config || {};
+            window.load.config.eTrack = window.load.config.eTrack || {};
+            window.pageId = eTSave.brand || 'nrma;'
+            window.pageId += eTSave.blacklist || '';
+            window.load.config.advanced = eTSave.advTrack === 'true' ? true : false;
+
+            function saveSettings(dropdown, value) {
+                eTSave[dropdown] = value;
+                localStorage.eTSave = JSON.stringify(eTSave);
+            };
+
+            function loadSettings(id, setting) {
+                var element = document.getElementById(id);
+                element.value = setting;
+            };
+
+        </script>   
+    </head>
+    <body class="defaultFont">
+        <script src='./dist/local/engagement-tracking-local.js'></script>
+        <h2>Engagement Tracking Dev Testing</h2>
+        <h3>Settings</h3>
+        <div class="grid-container grid-container--fill">
+            <div class="grid-header">
+                    Tealium Profile<br>
+                    <select id="profile" onchange="window.load.tools.enterDebugMode(this.value)">
+                        <option value="null">null</option>    
+                        <option value="main/dev">main/dev</option>
+                        <option value="kana/dev">kana/dev</option>
+                        <option value="cgu/dev">cgu/dev</option>
+                        <option value="nrma/dev">nrma/dev</option>
+                        <option value="coles/dev">coles/dev</option>
+                        <option value="racv/dev">racv/dev</option>        
+                        <option value="sgio/dev">sgio/dev</option>  
+                        <option value="sgic/dev">sgic/dev</option>                                        
+                    </select>
+                </div>
+            <div class="grid-header">
+                Mock pageId Brand<br>
+                <select id="brand" onchange="saveSettings('brand', this.value)">
+                    <option value="www.nrma.com.au">nrma</option>
+                    <option value="www.sgio.com.au">sgio</option>
+                    <option value="www.sgic.com.au">sgic</option>
+                    <option value="www.cgu.com.au">cgu</option>
+                    <option cvalue="www.coles.com.au">coles</option>
+                    <option value="other">other</option>
+                </select>
+            </div>
+            <div class="grid-header">
+                Mock pageId Blacklist<br>
+                <select id="blacklist" onchange="saveSettings('blacklist', this.value)">
+                    <option value="">None</option>
+                    <option value="/contact-us/phone">contact-us/phone</option>
+                    <option value="/faq">faq</option>
+                </select>
+            </div>
+            <div class="grid-header">
+                Mock advancedTracking<br>
+                <select id="advTrack" onchange="saveSettings('advTrack', this.value)">
+                    <option value="true">True</option>
+                    <option value="false" selected="selected">False</option>
+                </select>
+            </div>
+            <div class="grid-header">
+                Reload after setting:<br>
+                <input id="submit" type="button" onclick="location.reload()" value="Reload">
+            </div>
+        </div>
+        <script>
+            loadSettings('profile', load.config.debug || 'kana/dev');
+            loadSettings('brand', eTSave.brand || 'nrma');
+            loadSettings('blacklist', eTSave.blacklist || '');
+            loadSettings('advTrack', eTSave.advTrack || '');
+        </script>
+        <h3>Form Radio</h3>
+        <div class="grid-container grid-container--fill">
+            <div class="grid-element">    
+                <input name="Raw" type="radio" value="Name Element Only"> Name Element Only
+            </div> 
+            <div class="grid-element">    
+                <input name="Data-Tracking" data-tracking="data-tracking-attribute" type="radio" value="Data-Tracking Test Value"> data-tracking
+            </div>
+            <div class="grid-element">    
+                <input name="test@gmail.com" type="radio" id='pii-suppress' value="PII Suppress Test Value"> PII Suppress
+            </div>        
+            <div class="grid-element">    
+                <input name="PII Disabled" type="radio" value="test@test.com"> test@test.com
+            </div>
+            <div class="grid-element red">    
+                <input name="data-et-suppress" type="radio" data-et-suppress value="ata-et-suppress"> data-et-suppress
+            </div>
+            <div class="grid-element red">    
+                <input name="class-tcChat" type="radio" class="tcChat" value="tcChat Class"> tcChat Class
+            </div>     
+        </div>
+        <h3>Form Checkbox</h3>
+        <div class="grid-container grid-container--fill">
+            <div class="grid-element">    
+                <input name="Raw" type="checkbox" value="Name Element Only"> Name Element Only
+            </div> 
+            <div class="grid-element">    
+                <input name="Data-Tracking" data-tracking="data-tracking-attribute" type="checkbox" value="Data-Tracking Test Value"> data-tracking 
+            </div>
+        
+            <div class="grid-element">    
+                <input name="test@gmail.com" type="checkbox" id='pii-suppress' value="PII Surpress Test Value"> PII Suppress
+            </div>        
+            <div class="grid-element">    
+                <input name="PII Disabled" type="checkbox" value="test@test.com"> test@test.com
+            </div>
+            <div class="grid-element red">    
+                <input name="data-et-suppress" type="checkbox" data-et-suppress value="data-et-suppress"> data-et-suppress
+            </div>
+            <div class="grid-element red">    
+                <input name="class-tcChat" type="checkbox" class="tcChat" value="tcChat Class"> tcChat Class
+            </div>
+        </div>
+        <h3>Form Text</h3>
+        <div class="grid-container grid-container--fill">
+            <div class="grid-element">
+                Name Element Only<br>
+                <input name="Raw" type="text">
+            </div>
+            <div class="grid-element">
+                data-tracking<br>
+                <input name="Data Tracking" type="text" data-tracking="data-tracking-attribute">
+            </div>
+            <div class="grid-element">   
+                PII Suppress <br>
+                <input name="test@gmail.com" type="text" id='pii-suppress'> 
+            </div>
+            <div class="grid-element red">
+                data-et-suppress<br>
+                <input name="data-et-surpress-attribute" type="text" data-et-suppress>
+            </div>
+            <div class="grid-element red">
+                tcChat Class<br>
+                <input name="class-tcChat" type="text" class="tcChat">
+            </div>
+        </div>        
+        <h3>Form Select</h3>
+        <div class="grid-container grid-container--fill">
+            <div class="grid-element">    
+                Name Element Only<br>
+                <select id="Raw">
+                    <option value="Name Element Only 1">Name Element Only 1</option>
+                    <option value="Name Element Only 2">Name Element Only 2</option>
+                </select>
+            </div> 
+            <div class="grid-element">  
+                Data-Tracking<br>
+                <select name="Data-Tracking" data-tracking="data-tracking-attribute">
+                    <option value="data-Tracking 1">data-Tracking 1</option>
+                    <option value="data-Tracking 2">data-Tracking 2</option>
+                </select> 
+            </div>                  
+            <div class="grid-element">    
+                pii-suppress<br>
+                <select name="test@gmail.com" id='pii-suppress'>
+                    <option value="PII Surpress 1">PII Surpress 1</option>
+                    <option value="PII Surpress 2">PII Surpress 2</option>
+                </select>
+            </div>
+            <div class="grid-element">    
+                PII Disabled<br>
+                <select name="pii disabled">
+                    <option value="test1@gmail.com">test1@gmail.com</option>
+                    <option value="test@2gmail.com">test2@gmail.com</option>
+                </select>
+            </div>     
+            <div class="grid-element red">   
+                data-et-suppress<br>
+                <select name="Data-Tracking" data-et-suppress>
+                    <option value="data-et-suppress 1">data-et-suppress 1</option>
+                    <option value="data-et-suppress 2">data-et-suppress 2</option>
+                </select>
+            </div>
+            <div class="grid-element red">    
+                class-tcChat<br>
+                <select name="Data-Tracking" class="tcChat">
+                    <option value="class-tcChat 1">class-tcChat 1</option>
+                    <option value="class-tcChat 2">class-tcChat 2</option>
+                </select>
+            </div> 
+        </div>
+        <h3>Click Anchor</h3> 
+        <div class="grid-container grid-container--fill">
+            <div class="grid-element">
+                <a data-tracking="test data-tracking" id="test id" class="test class">data-tracking</a>
+            </div> 
+            <div class="grid-element">
+                <a data-title="test data-title">data-title</a>
+            </div> 
+            <div class="grid-element">
+                <a id="test id" class="test class">id</a>
+            </div>
+            <div class="grid-element">
+                <a class="test class">class</a>
+             </div>
+            <div class="grid-element">
+                <a id="test@test.com" class="PII Suppress">PII Suppress</a> 
+            </div>
+            <div class="grid-element">
+                <a class="pii disabled">test@test.com</a>
+            </div>
+            <div class="grid-element red">
+                <a class="data-et-suppress" data-et-suppress>data-et-suppress</a>
+            </div>  
+            <div class="grid-element red"> 
+                <a class="class-tcChat">class-tcChat</a>
+            </div>             
+        </div>
+        <h3>Click List</h3> 
+        <div class="grid-container grid-container--fill">
+             <div class="grid-element">
+                 <li data-tracking="test data-tracking" id="test id" class="test class">data-tracking</li>
+            </div> 
+            <div class="grid-element">
+                <li data-title="test data-title">data-title</li> 
+                </div> 
+            <div class="grid-element">
+                <li id="test id" class="test class">id</li>
+            </div>
+            <div class="grid-element">
+                <li class="test class">class</li>
+             </div>
+            <div class="grid-element">
+                 <li id="test@test.com" class="PII Suppress">PII Suppress</li> 
+            </div>
+            <div class="grid-element">
+                <li class="pii disabled">test@test.com</li>
+            </div>
+            <div class="grid-element red">
+                 <li class="data-et-suppress" data-et-suppress> data-et-suppress</li>
+            </div>  
+            <div class="grid-element red"> 
+                <li class="class-tcChat">class-tcChat</li>
+            </div>
+            <div class="grid-element red">
+                CGU Ordered list Sentences<br>
+                <ol><li>Report the theft to police and make sure to note the report number down. You will need this police report to lodge an insurance claim.</li>
+                    <li>Access your accounts from a different source and change your passwords and login details. This includes emails, social pages, and bank sign in.</li>
+                    <li>Lodge your insurance claim. Have on hand your policy number, police report, and any proof of ownership such a receipt and photos.</li>
+                </ol>
+            </div>
+        </div>
+        <h3>Click Button</h3> 
+        <div class="grid-container grid-container--fill">
+            <div class="grid-element">
+                <button data-tracking="test data-tracking" id="test id" class="test class" > data-tracking</button>
+            </div> 
+            <div class="grid-element">
+                <button data-title="test data-title">data-title</button>
+                </div> 
+            <div class="grid-element">
+                <button id="test id" class="test class">id</button>
+            </div>
+            <div class="grid-element">
+                <button class="test class">class</button>
+            </div>
+            <div class="grid-element">
+                <button id="test@test.com" class="PII Suppress">PII Suppress</button>
+            </div>
+            <div class="grid-element">
+                <button class="pii disabled">test@test.com</button>
+            </div>
+            <div class="grid-element red">
+                <button class="data-et-suppress" data-et-suppress>data-et-suppress</button>
+            </div>  
+            <div class="grid-element red"> 
+                <button class="class-tcChat">class-tcChat</button>
+            </div>
+        </div>  
+        <h3>Click Span</h3> 
+        <div class="grid-container grid-container--fill">
+            <div class="grid-element">
+                <span data-tracking="test data-tracking" id="test id" class="test class" > data-tracking</span>
+            </div> 
+            <div class="grid-element">
+                <span data-title="test data-title">data-title</span>
+                </div> 
+            <div class="grid-element">
+                <span id="test id" class="test class">id</span>
+            </div>
+            <div class="grid-element">
+                <span class="test class">class</span>
+            </div>
+            <div class="grid-element">
+                <span id="test@test.com" class="PII Suppress">PII Suppress</span>
+            </div>
+            <div class="grid-element">
+                <span class="pii disabled">test@test.com</span>
+            </div>
+            <div class="grid-element red">
+                <span class="data-et-suppress" data-et-suppress>data-et-suppress</span>
+            </div>  
+            <div class="grid-element red"> 
+                <span class="class-tcChat">class-tcChat</span>
+            </div>
+            </div> 
+        <h3>Click Icon</h3> 
+        <div class="grid-container grid-container--fill">
+            <div class="grid-element">
+                <i data-tracking="test data-tracking" id="test id" class="test class" > data-tracking</i>
+            </div> 
+            <div class="grid-element">
+                <i data-title="test data-title">data-title</i>
+                </div> 
+            <div class="grid-element">
+                <i id="test id" class="test class">id</i>
+            </div>
+            <div class="grid-element">
+                <i class="test class">class</i>
+            </div>
+            <div class="grid-element">
+                <i id="test@test.com" class="PII Suppress">PII Suppress</i>
+            </div>
+            <div class="grid-element">
+                <i class="pii disabled">test@test.com</i>
+            </div>
+            <div class="grid-element red">
+                <i class="data-et-suppress" data-et-suppress>data-et-suppress</i>
+            </div>  
+            <div class="grid-element red"> 
+                <i class="class-tcChat">class-tcChat</i>
+            </div>
+        </div>   
+        <h3>Click File</h3> 
+        <div class="grid-container grid-container--fill">
+            <div class="grid-element">
+                <file data-tracking="test data-tracking" id="test id" class="test class" > data-tracking</file>
+            </div> 
+            <div class="grid-element">
+                <file data-title="test data-title">data-title</file>
+                </div> 
+            <div class="grid-element">
+                <file id="test id" class="test class">id</file>
+            </div>
+            <div class="grid-element">
+                <file class="test class">class</file>
+            </div>
+            <div class="grid-element">
+                <file id="test@test.com" class="PII Suppress">PII Suppress</file>
+            </div>
+            <div class="grid-element">
+                <file class="pii disabled">test@test.com</file>
+            </div>
+            <div class="grid-element red">
+                <file class="data-et-suppress" data-et-suppress>data-et-suppress</file>
+            </div>  
+            <div class="grid-element red"> 
+                <file class="class-tcChat">class-tcChat</file>
+            </div>
+        </div> 
+        <h3>Other Scenarios</h3> 
+        <div class="grid-container grid-container--fill">
+            <div class="grid-element">
+                CGU parentNode<br>
+                <a data-tracking='test-parent'> Test
+                    <img src="https://www.cgu.com.au/sites/default/themes/cgu_pm_fed/build/img/CGU_logo-green.svg" height='50px' value='image value'>
+                </a>
+            </div> 
+            <div class="grid-element">
+                    CGU double parentNode<br>
+                <a data-tracking='test-parent-parent'>
+                    <span>
+                        <img src="https://www.cgu.com.au/sites/default/themes/cgu_pm_fed/build/img/CGU_logo-green.svg" height='50px'>
+                    </span>
+                </a>
+            </div> 
+            <div class="grid-element">
+                CGU track-<br>
+                <a class="track-testTrack" id="Fail: ID shouldn't track">track-testTrack</a>
+            </div>
+            <div class="grid-element">
+                CGU track_<br>
+                <a class="track_testTrack" id="Fail: ID shouldn't track">track_testTrack</a>
+            </div>
+            <div class="grid-element">
+                RoboAdvice (no default)<br>
+                <input type="text" name="Hello and welcome! I will be your robo advisor today. Let's start with your name please." class="" placeholder="Type here">
+            </div>
+            <div class="grid-element">
+                RoboAdvice (with default)<br>
+                <input type="text" id='this should appear' name="Hello and welcome! I will be your robo advisor today. Let's start with your name please." class="" placeholder="Type here">
+            </div>
+            <div class="grid-element">
+                Multi Class Names<br>
+                <input type="text" name="Hello and welcome! I will be your robo advisor today. Let's start with your name please." class="main-container container-fluid" placeholder="Type here">
+            </div>
+            <div class="grid-element">
+                CGU Logout Button<br>
+                <button type="button" class="c-btn c-btn__primary--outline c-btn-size--1 l-header__auth-button u-mar-l--3 u-font--16 has-mobile-menu " size="1" data-tracking="btn-click:logout"><i class="fa fa-lock u-font--16 u-mar-r--1"></i><span>Log out</span></button>
+            </div>
+            <div class="grid-element red">
+                Robo Advice Button<br>
+                <button style="padding-top: 4px;">SEND</button>
+            </div>
+            <div class="grid-element">
+                Robo Advice i<br>
+                <i class="zmdi zmdi-plus-circle-o">adfadf</i>
+            </div>
+            <div class="grid-element">
+                track_header-getquote<br>
+                <i class="zmdi track_header-getquote">adfadf</i>
+            </div>
+            <div class="grid-element">
+                track_header-getquote<br>
+                <a class="adfda track_header-getquote"> Test
+                    <img src="https://www.cgu.com.au/sites/default/themes/cgu_pm_fed/build/img/CGU_logo-green.svg" height='50px' value='image value'>
+                </a>
+            </div>
+            <div class="grid-element">
+                    track_header-getquote<br>
+                    <textarea id='textarea' class='blah' name='textarea'>
+            </div> 
+            <div class="grid-element">
+                iframe<br>
+                <iframe src='iframe.html'></iframe>
+        </div> 
+        </div>
+        
+    </body>
+</html>
+
+
