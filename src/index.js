@@ -5,9 +5,13 @@ const bindEvents = () => {
   attach();
 };
 
-try {
-  arrayPrototypeFindPolyFill();
-  bindEvents();
-} catch (e) {
-  console.log(e);
-}
+const initAttach = () => {
+  try {
+    arrayPrototypeFindPolyFill();
+    bindEvents();
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export default initAttach;
