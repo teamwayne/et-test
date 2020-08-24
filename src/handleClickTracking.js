@@ -153,4 +153,13 @@ export const clickTrackingHandler = (event, eventName) => {
       ...CLICK_DATA.advanced.attributes,
     },
   });
+  console.log('******* Manage JS Tracking*******');
+  console.log('click-tracking', {
+    ...CLICK_DATA.adobeString,
+    data: {
+      ...CLICK_DATA.adobeString,
+      ...CLICK_DATA.standard.attributes,
+      ...CLICK_DATA.advanced.attributes,
+    },
+  });
 };

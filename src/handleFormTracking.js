@@ -111,6 +111,16 @@ export const formTrackingHandler = event => {
         ...FORM_DATA.advanced.attributes,
       },
     });
+
+    console.log('******* Manage JS Tracking*******');
+    console.log('form-input', {
+      ...FORM_DATA.adobeString,
+      data: {
+        ...FORM_DATA.adobeString,
+        ...FORM_DATA.standard.attributes,
+        ...FORM_DATA.advanced.attributes,
+      },
+    });
     // Add text and textarea to tracked array so subsequent keystrokes do not fire multiple events (only used by the Input event.)
     if (event.target.type && /text/.test(event.target.type.toLowerCase())) {
       tracked.push(FORM_DATA.adobeString.form_interaction + getPageId());

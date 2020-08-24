@@ -1,7 +1,7 @@
 {
-  "name": "iag_personalisation_engineering_boilerplate",
+  "name": "engagement-tracking",
   "version": "1.0.0",
-  "description": "IAG Personalisation Engineering Boilerplate",
+  "description": "Engagement Tracking",
   "main": "index.js",
   "scripts": {
     "test": "jest",

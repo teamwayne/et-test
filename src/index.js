@@ -5,7 +5,7 @@ const bindEvents = () => {
   attach();
 };
 
-const initAttach = () => {
+const engagementTrackingAttach = () => {
   try {
     arrayPrototypeFindPolyFill();
     bindEvents();
@@ -14,4 +14,4 @@ const initAttach = () => {
   }
 };
 
-export default initAttach;
+export default engagementTrackingAttach;
