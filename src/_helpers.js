@@ -92,7 +92,7 @@ export const checkIfETShouldBeDisabled = event =>
  */
 export const checkForPII = attribute => {
   if (!attribute) return false;
-   if (config.WHITELIST_APP) return true;
+  if (config.WHITELIST_APP) return true;
   if (
     Object.keys(config.PII_CHECKS)
       .map(key => config.PII_CHECKS[key])
