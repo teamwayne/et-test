@@ -19,6 +19,11 @@ export const WHITELIST_BRANDS = window.load.config.eTrack.whitelistBrands || [
   /easysure/,
 ];
 
+/**
+ * Disable PII Checking on brochureware websites.
+ */
+export const WHITELIST_APP = window.load.config.apptype === 'brochureware';
+
 /** Always disable on the following pages.
  * @const {array regex} BLACKLIST_PAGES e.g.
  * /\/contact-us(\/phone)?$/,
