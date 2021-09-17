@@ -79,13 +79,14 @@ export const parentalHandler = (matcherFunction, event, attributes) => {
  * Primary function to check if Engagement Tracking should be disabled.
  * @param {NodeList} event The event NodeList attached by the addEventListener().
  */
-export const checkIfETShouldBeDisabled = event =>
-  !brandPageMatcher(config.WHITELIST_BRANDS) || // Disable Engagement Tracking if brand not in whitelist
+export const checkIfETShouldBeDisabled = event => {
+  if (!!!event.target.parentNode || !!!event.target.parentNode.parentNode || !!!event.target) return true;
+  return !brandPageMatcher(config.WHITELIST_BRANDS) || // Disable Engagement Tracking if brand not in whitelist
   (config.BLACKLIST_ATTRIBUTES && brandPageMatcher(config.BLACKLIST_PAGES)) || // Disable Engagement Tracking if page name in blacklist
   parentalHandler(suppressAttrMatcher, event, config.SUPPRESS_ATTRIBUTE) || // Disable Engagement Tracking if Suppress Attribute Found. Also checks 2 parentNode levels.
   (config.BLACKLIST_ATTRIBUTES &&
     parentalHandler(blackListAttrMatcher, event, config.BLACKLIST_ATTRIBUTES)); // Disable Engagement Tracking if a BlackList Attribute is found. Also checks 2 parentNode levels.
-
+}
 /**
  * Evaluates whether a given string value from an attribute contains PII by conducting a regex text against a set of PII regex.
  * @param {String} attribute a string value from an attribute to compare against config.PII_CHECKS.
