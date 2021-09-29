@@ -16,6 +16,10 @@ export const WHITELIST_BRANDS = window.load.config.eTrack.whitelistBrands || [
   /coles/,
   /state/,
   /ami/,
+  /nac/,
+  /racv/,
+  /lantern/,
+  /swann/,
   /easysure/,
 ];
 
